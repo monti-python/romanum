@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"romanum/pkg/converter"
 )
 
 func main() {
@@ -21,6 +22,12 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Printf("Input number is %d\n", number)
+	roman, err := converter.ToRoman(number)
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+		os.Exit(1)
+	}
+
+	fmt.Printf("The Roman numeral for %d is %s\n", number, roman)
 	// fmt.Println("Halted execution")
 }
