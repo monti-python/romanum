@@ -7,7 +7,8 @@ import (
 )
 
 func hello(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(w, "hello\n")
+	name := req.URL.Query().Get("name")
+	fmt.Fprintf(w, "hello %s!\n", name)
 }
 
 func main() {
