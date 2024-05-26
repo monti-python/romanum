@@ -26,7 +26,7 @@ docker build -t romanum .
 docker run --rm -p 8080:8080 romanum
 ```
 
-# Tasks
+# Progress
 - [x] Ensure the client can submit a range of numbers (e.g., 10-50).
 - [x] Handle numbers within the range of 1 to 3999; any numbers outside this range should return an error message.
 - [x] The server must accurately convert all numbers in the specified range to Roman numerals.
@@ -36,4 +36,7 @@ docker run --rm -p 8080:8080 romanum
 - [x] Create an integration test suite to automate the evaluation of the functionality.
 
 # Improvements
+- Logging
+- Choosing port
+- Custom verbosity
 - Provide thoughts on what improvements could be made if you had more time. Also, provide information about what is missing to have this API production ready.
