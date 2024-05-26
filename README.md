@@ -33,7 +33,7 @@ docker run --rm -p 8080:8080 romanum
 - [x] Collect and return all results in ascending order.
 - [ ] Provide the OpenAPI specification.
 - [x] Wrap the service into a Docker container.
-- [ ] Create an integration test suite to automate the evaluation of the functionality.
+- [x] Create an integration test suite to automate the evaluation of the functionality.
 
 # Improvements
 - Provide thoughts on what improvements could be made if you had more time. Also, provide information about what is missing to have this API production ready.

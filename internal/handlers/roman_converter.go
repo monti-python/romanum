@@ -10,7 +10,7 @@ import (
 
 type ConversionResult struct {
 	Number       int    `json:"number"`
-	RomanNumeral string `json:"roman_numeral"`
+	RomanNumeral string `json:"roman"`
 }
 
 func ConversionHandler(w http.ResponseWriter, req *http.Request) {
@@ -36,7 +36,7 @@ func ConversionHandler(w http.ResponseWriter, req *http.Request) {
 	    http.Error(w, errMsg, http.StatusBadRequest)
 		return
 	}
-	fmt.Printf("Bounds are '%v' and '%v'", lower, upper)
+	fmt.Printf("Requested range: %d-%d\n", lower, upper)
 
 	results := make([]ConversionResult, 0)
 	for i := lower; i <= upper; i++ {
