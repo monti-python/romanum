@@ -18,26 +18,35 @@ func ConversionHandler(w http.ResponseWriter, req *http.Request) {
 	lowerStr := req.URL.Query().Get("start")
 	upperStr := req.URL.Query().Get("end")
 	if lowerStr == "" || upperStr == "" {
-		http.Error(w, "Params 'start' and 'end' needed", http.StatusBadRequest)
+		errMsg := "Params 'start' and 'end' needed"
+		http.Error(w, errMsg, http.StatusBadRequest)
         return
 	}
     // Cast bounds to integer
 	lower, err1 := strconv.Atoi(lowerStr)
 	upper, err2 := strconv.Atoi(upperStr)
 	if err1 != nil || err2 != nil {
-		http.Error(w, "Range bounds must be integers", http.StatusBadRequest)
+		errMsg := "Range bounds must be integers"
+		http.Error(w, errMsg, http.StatusBadRequest)
 		return
 	}
 	// Sanity check
     if lower < 1 || upper > 3999 || lower > upper {
-	    http.Error(w, "Invalid range. Ensure 1 <= start <= end <= 3999", http.StatusBadRequest)
+		errMsg := "Invalid range. Ensure 1 <= start <= end <= 3999"
+	    http.Error(w, errMsg, http.StatusBadRequest)
 		return
 	}
 	fmt.Printf("Bounds are '%v' and '%v'", lower, upper)
 
 	results := make([]ConversionResult, 0)
 	for i := lower; i <= upper; i++ {
-		result, _ := converter.ToRoman(i)
+		result, err := converter.ToRoman(i)
+        // Defensive catch in case of implementation errors
+		if err != nil {
+			errMsg := fmt.Sprintf("Unable to convert number: %d", i)
+			http.Error(w, errMsg, http.StatusInternalServerError)
+			return
+		}
 		results = append(results, ConversionResult{
 			Number:      i,
 			RomanNumeral: result,
