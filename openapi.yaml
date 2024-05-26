@@ -3,4 +3,43 @@ info:
   title: Romanum
   summary: Convert a range of numbers to Roman numerals
   version: 1.0.0
+paths:
+  /convert:
+    get:
+      summary: Convert a range of numbers to Roman numerals
+      parameters:
+        - in: query
+          name: start
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+          required: true
+          description: The starting number of the range (1-3999)
+        - in: query
+          name: end
+          schema:
+            type: integer
+            format: int64
+            maximum: 3999
+          required: true
+          description: The ending number of the range (1-3999)
+      responses:
+        '200':
+          description: A map of numbers to their Roman representations
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  type: object
+                  properties:
+                    number:
+                      type: integer
+                    roman:
+                      type: string
+        '400':
+          description: Invalid input
+        '500':
+          description: Internal server error
 
