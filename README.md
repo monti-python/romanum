@@ -52,4 +52,10 @@ docker stop romanum
 - Improve logging formatting and introduce various levels of verbosity
 - Improve error handling and introduce more specific error codes and messages
 
-
+# Production Readiness
+- Reliability and Scalability: Deploy the app in a highly available, auto-scaling environment (e.g. Kubernetes, AWS ECS...)
+- Security: Enforce HTTPS and introduce rate limiting to prevent service abuse or DDoS attacks
+- Authentication: Introduce authentication mechanisms if the API is not intended for public use
+- Observability: Capture logs and monitor key metrics to keep track of the API's health and performance
+- Change Management: Set up CICD pipelines to automate building, testing and deployment
+- Docs: Leverage openAPI specs to generate documentation automatically (e.g. using Swagger)
