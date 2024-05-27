@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Romanum
-  summary: Convert a range of numbers to Roman numerals
+  description: Convert a range of numbers to Roman numerals
   version: 1.0.0
 paths:
   /convert:
@@ -16,6 +16,7 @@ paths:
             minimum: 1
           required: true
           description: The starting number of the range (1-3999)
+          example: 3
         - in: query
           name: end
           schema:
@@ -24,6 +25,7 @@ paths:
             maximum: 3999
           required: true
           description: The ending number of the range (1-3999)
+          example: 5
       responses:
         '200':
           description: A map of numbers to their Roman representations
@@ -38,6 +40,13 @@ paths:
                       type: integer
                     roman:
                       type: string
+                example:
+                  - number: 3
+                    roman: "III"
+                  - number: 4
+                    roman: "IV"
+                  - number: 5
+                    roman: "V"
         '400':
           description: Invalid input
         '500':
