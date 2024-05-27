@@ -18,12 +18,23 @@ go build -o romanum ./cmd/server
 ./romanum
 # Server is running on port 8080...
 ```
+
+4. Make sure the service is up
+```bash
+curl "localhost:8080/convert?start=3&end=5"
+# [{"number":3,"roman":"III"},{"number":4,"roman":"IV"},{"number":5,"roman":"V"}]
+```
+
+
 ## Docker
 Romanum can also be run as a container
 
 ```bash
 docker build -t romanum .
-docker run --rm -p 8080:8080 romanum
+docker run --rm -d -p 8080:8080 --name romanum romanum
+curl "localhost:8080/convert?start=3&end=5"
+# [{"number":3,"roman":"III"},{"number":4,"roman":"IV"},{"number":5,"roman":"V"}]
+docker stop romanum
 ```
 
 # Progress
@@ -31,7 +42,7 @@ docker run --rm -p 8080:8080 romanum
 - [x] Handle numbers within the range of 1 to 3999; any numbers outside this range should return an error message.
 - [x] The server must accurately convert all numbers in the specified range to Roman numerals.
 - [x] Collect and return all results in ascending order.
-- [ ] Provide the OpenAPI specification.
+- [x] Provide the OpenAPI specification.
 - [x] Wrap the service into a Docker container.
 - [x] Create an integration test suite to automate the evaluation of the functionality.
 
