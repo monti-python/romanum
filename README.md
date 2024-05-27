@@ -47,7 +47,9 @@ docker stop romanum
 - [x] Create an integration test suite to automate the evaluation of the functionality.
 
 # Improvements
-- Logging
-- Choosing port
-- Custom verbosity
-- Provide thoughts on what improvements could be made if you had more time. Also, provide information about what is missing to have this API production ready.
+- Parameterize hostname and port for the service
+- Memoize `ToRoman` conversion function (or turn it into a lookup table)
+- Improve logging formatting and introduce various levels of verbosity
+- Improve error handling and introduce more specific error codes and messages
+
+
