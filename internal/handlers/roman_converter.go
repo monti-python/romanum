@@ -10,17 +10,21 @@ import (
 
 type ConversionResult struct {
 	Number       int    `json:"number"`
-	RomanNumeral string `json:"roman"`
+	Converted    string `json:"converted"`
 }
 
 func ConversionHandler(w http.ResponseWriter, req *http.Request) {
 	// Get the range URL params
 	lowerStr := req.URL.Query().Get("start")
 	upperStr := req.URL.Query().Get("end")
+	system := req.URL.Query().Get("system")
 	if lowerStr == "" || upperStr == "" {
 		errMsg := "Params 'start' and 'end' needed"
 		http.Error(w, errMsg, http.StatusBadRequest)
         return
+	}
+	if system == "" {
+		system = "roman"
 	}
     // Cast bounds to integer
 	lower, err1 := strconv.Atoi(lowerStr)
@@ -40,7 +44,20 @@ func ConversionHandler(w http.ResponseWriter, req *http.Request) {
 
 	results := make([]ConversionResult, 0)
 	for i := lower; i <= upper; i++ {
-		result, err := converter.ToRoman(i)
+		var result string
+		var err error
+		switch system {
+		case "roman":
+			result, err = converter.ToRoman(i)
+		case "binary":
+			result, err = converter.ToBinary(i)
+		case "hexadecimal":
+			result, err = converter.ToHexadecimal(i)
+		default:
+			errMsg := fmt.Sprintf("Unsupported numerical system: %s", system)
+			http.Error(w, errMsg, http.StatusBadRequest)
+			return
+		}
         // Defensive catch in case of implementation errors
 		if err != nil {
 			errMsg := fmt.Sprintf("Unable to convert number: %d", i)
@@ -49,7 +66,7 @@ func ConversionHandler(w http.ResponseWriter, req *http.Request) {
 		}
 		results = append(results, ConversionResult{
 			Number:      i,
-			RomanNumeral: result,
+			Converted:   result,
 		})
 	}
 

@@ -24,7 +24,20 @@ var romanNumerals = []struct {
 	{1, "I"},
 }
 
-func ToRoman(num int) (string, error) {
+func ConvertNumber(num int, system string) (string, error) {
+	switch system {
+	case "roman":
+		return toRoman(num)
+	case "binary":
+		return toBinary(num)
+	case "hexadecimal":
+		return toHexadecimal(num)
+	default:
+		return "", fmt.Errorf("unsupported numerical system: %s", system)
+	}
+}
+
+func toRoman(num int) (string, error) {
 	if num < 1 || num > 3999 {
 		return "", fmt.Errorf("number %d out of range (1-3999)", num)
 	}
@@ -35,4 +48,18 @@ func ToRoman(num int) (string, error) {
 		result.WriteString(strings.Repeat(roman.Symbol, count))
 	}
 	return result.String(), nil
+}
+
+func toBinary(num int) (string, error) {
+	if num < 0 {
+		return "", fmt.Errorf("number %d out of range", num)
+	}
+	return fmt.Sprintf("%b", num), nil
+}
+
+func toHexadecimal(num int) (string, error) {
+	if num < 0 {
+		return "", fmt.Errorf("number %d out of range", num)
+	}
+	return fmt.Sprintf("%X", num), nil
 }

@@ -26,6 +26,14 @@ paths:
           required: true
           description: The ending number of the range (1-3999)
           example: 5
+        - in: query
+          name: system
+          schema:
+            type: string
+            enum: [roman, binary, hexadecimal]
+          required: false
+          description: The numerical system to convert to (default is "roman")
+          example: roman
       responses:
         '200':
           description: A map of numbers to their Roman representations
@@ -38,17 +46,16 @@ paths:
                   properties:
                     number:
                       type: integer
-                    roman:
+                    converted:
                       type: string
                 example:
                   - number: 3
-                    roman: "III"
+                    converted: "III"
                   - number: 4
-                    roman: "IV"
+                    converted: "IV"
                   - number: 5
-                    roman: "V"
+                    converted: "V"
         '400':
           description: Invalid input
         '500':
           description: Internal server error
-

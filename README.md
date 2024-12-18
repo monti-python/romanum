@@ -25,6 +25,14 @@ curl "localhost:8080/convert?start=3&end=5"
 # [{"number":3,"roman":"III"},{"number":4,"roman":"IV"},{"number":5,"roman":"V"}]
 ```
 
+5. Convert numbers to different numerical systems
+```bash
+curl "localhost:8080/convert?start=3&end=5&system=binary"
+# [{"number":3,"converted":"11"},{"number":4,"converted":"100"},{"number":5,"converted":"101"}]
+
+curl "localhost:8080/convert?start=3&end=5&system=hexadecimal"
+# [{"number":3,"converted":"3"},{"number":4,"converted":"4"},{"number":5,"converted":"5"}]
+```
 
 ## Docker
 Romanum can also be run as a container
