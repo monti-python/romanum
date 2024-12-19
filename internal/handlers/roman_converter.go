@@ -46,18 +46,7 @@ func ConversionHandler(w http.ResponseWriter, req *http.Request) {
 	for i := lower; i <= upper; i++ {
 		var result string
 		var err error
-		switch system {
-		case "roman":
-			result, err = converter.ToRoman(i)
-		case "binary":
-			result, err = converter.ToBinary(i)
-		case "hexadecimal":
-			result, err = converter.ToHexadecimal(i)
-		default:
-			errMsg := fmt.Sprintf("Unsupported numerical system: %s", system)
-			http.Error(w, errMsg, http.StatusBadRequest)
-			return
-		}
+		result, err = converter.ConvertNumber(i, system)
         // Defensive catch in case of implementation errors
 		if err != nil {
 			errMsg := fmt.Sprintf("Unable to convert number: %d", i)
